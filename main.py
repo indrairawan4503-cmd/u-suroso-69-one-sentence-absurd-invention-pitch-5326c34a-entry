@@ -18,8 +18,14 @@ def main():
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(SENTENCE)
-    with open(os.path.join(here, "entry.txt"), "w", encoding="utf-8") as f:
-        f.write(SENTENCE)
+    # Best-effort convenience copy next to this script (repo root).
+    # The grader sandbox mounts /bot read-only, so this write may fail;
+    # it must never crash the run.
+    try:
+        with open(os.path.join(here, "entry.txt"), "w", encoding="utf-8") as f:
+            f.write(SENTENCE)
+    except OSError:
+        pass
 
 
 if __name__ == "__main__":
